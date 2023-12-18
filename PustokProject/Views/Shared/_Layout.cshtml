@@ -323,7 +323,7 @@
                             <div class="main-navigation flex-lg-right">
                                 <div class="cart-widget">
                                     <div class="login-block">
-                                        <a href="login-register.html" class="font-weight-bold">Login</a> <br>
+                                        <a asp-controller="Auth" asp-action="LoginRegisterIndex" class="font-weight-bold">Login</a> <br>
                                         <span>or</span><a href="login-register.html">Register</a>
                                     </div>
                                     <div class="cart-block">
@@ -497,6 +497,7 @@ Footer Area
 <script src="~/js/plugins.js"></script>
 <script src="~/js/ajax-mail.js"></script>
     <script src="~/js/custom.js"></script>
+
         <script src="jquery-3.7.1.min.js"></script>
 
         @await RenderSectionAsync("scripts",false);

@@ -1,0 +1,90 @@
+﻿@using PustokProject.ViewModels.Auth
+@model VM_LoginRegister
+
+
+@section scripts
+{
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+
+}
+
+<main class="page-section inner-page-sec-padding-bottom">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0">
+				<!-- Register Form-->
+				<form asp-controller="Auth" asp-action="Register" method="post">
+					<div class="login-form">
+						<h4 class="login-title">New Customer</h4>
+						<p><span class="font-weight-bold">I am a new customer</span></p>
+						<div class="row">
+							<div class="col-md-12 col-12 mb--15">
+								<label asp-for="RegisterModel.FullName"></label>
+								<input class="mb-0 form-control" asp-for="RegisterModel.FullName"
+									   placeholder="Enter your full name">
+								<span class="text-danger"  asp-validation-for="RegisterModel.FullName"></span>
+							</div>
+
+							<div class="col-12 mb--20">
+								<label asp-for="RegisterModel.Email"></label>
+								<input asp-for="RegisterModel.Email" class="mb-0 form-control" id="email" placeholder="Enter Your Email Address Here..">
+								<span class="text-danger"  asp-validation-for="RegisterModel.Email"></span>
+							</div>
+							<div class="col-12 mb--20">
+								<label asp-for="RegisterModel.Username"></label>
+								<input asp-for="RegisterModel.Username" class="mb-0 form-control" id="username" placeholder="Enter Your Username Here..">
+								<span class="text-danger" asp-validation-for="RegisterModel.Username"></span>
+							</div>
+							
+							<div class="col-lg-6 mb--20">
+								<label asp-for="RegisterModel.Password">Password</label>
+								<input asp-for="RegisterModel.Password" class="mb-0 form-control" type="password" id="password" placeholder="Enter your password">
+								<span class="text-danger" asp-validation-for="RegisterModel.Password"></span>
+							</div>
+							
+							<div class="col-lg-6 mb--20">
+								<label asp-for="RegisterModel.RePassword">Repeat Password</label>
+								<input asp-for="RegisterModel.RePassword"  class="mb-0 form-control" type="password" id="repeat-password" placeholder="Repeat your password">
+								<span class="text-danger" asp-validation-for="RegisterModel.RePassword"></span>
+							</div>
+							<div class="text-danger" asp-validation-summary="All"></div>
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-outlined">Register</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+				<!-- Login Form -->
+				<form asp-controller="Auth" asp-action="Login" method="post">
+					<div class="login-form">
+						<h4 class="login-title">Returning Customer</h4>
+						<p><span class="font-weight-bold">I am a returning customer</span></p>
+						<div class="row">
+							
+							<div class="col-12 mb--20">
+								<label asp-for="LoginModel.Email"></label>
+								<input asp-for="LoginModel.Email" class="mb-0 form-control" id="email" placeholder="Enter Your Email Address Here..">
+								<span class="text-danger" asp-validation-for="LoginModel.Email"></span>
+							</div>
+
+							<div class="col-lg-6 mb--20">
+								<label asp-for="LoginModel.Password">Password</label>
+								<input asp-for="LoginModel.Password" class="mb-0 form-control" type="password" id="password" placeholder="Enter your password">
+								<span class="text-danger" asp-validation-for="LoginModel.Password"></span>
+							</div>
+
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-outlined">Login</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
