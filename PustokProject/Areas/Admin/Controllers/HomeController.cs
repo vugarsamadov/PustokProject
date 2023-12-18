@@ -99,6 +99,7 @@ namespace PustokProject.Areas.Home.Controllers
                 slider.ThumpnailUrl = createModel.ThumpnailUrl;
                 slider.ButtonText = createModel.ButtonText;
                 slider.TextPosition = (HeroAreaTextPosition) createModel.TextPosition;
+
                 await _context.Sliders.AddAsync(slider);
                 await _context.SaveChangesAsync();
             }

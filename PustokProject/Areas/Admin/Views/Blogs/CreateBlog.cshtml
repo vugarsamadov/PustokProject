@@ -1,0 +1,43 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper MVCWebAppExample.TagHelpers.*, MVCWebAppExample
+@using PustokProject.CoreModels
+@using PustokProject.ViewModels.Blogs
+@model VM_BlogCreate
+
+
+<form class="flex card-body align-items-center" method="post" enctype="multipart/form-data" asp-action="CreateBlog">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Title" class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Title">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <span asp-validation-for="Description" class="text-danger"></span>
+        <label asp-for="Description" class="form-label">Description</label>
+        <input type="text" class="form-control" asp-for="Description">
+    </div>
+
+    <div class="form-group">
+        <span asp-validation-for="Content" class="text-danger"></span>
+        <label asp-for="Content" class="form-label">Content</label>
+        <input type="text" class="form-control" asp-for="Content">
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+        <label asp-for="AuthorId" class="form-label">Authors</label>
+        <select class="form-control" asp-for="AuthorId" asp-items="ViewBag.Authors">
+            <option disabled selected> Select Author</option>
+        </select>
+    </div>
+
+
+
+    <label asp-for="TagIds">TagIds</label>
+    <select class="form-control" asp-for="TagIds" asp-items="ViewBag.Tags"></select>
+
+    <button type="submit" class="btn btn-warning">Submit</button>
+
+</form>

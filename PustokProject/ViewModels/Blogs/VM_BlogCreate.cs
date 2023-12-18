@@ -1,9 +1,8 @@
-﻿using PustokProject.CoreModels;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PustokProject.ViewModels.Blogs
 {
-    public class VM_BlogIndex
+    public class VM_BlogCreate
     {
         public int Id { get; set; }
         [Required]
@@ -19,12 +18,8 @@ namespace PustokProject.ViewModels.Blogs
         [MinLength(3)]
         public string Content { get; set; }
 
-        public string AuthorName { get; set; }
+        public int AuthorId{ get; set; }
 
-        public string Tags{ get; set; }
-
-        public bool IsDeleted { get; set; }
-
-
+        public ICollection<int> TagIds { get; set; }
     }
 }

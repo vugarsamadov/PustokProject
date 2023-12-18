@@ -1,0 +1,82 @@
+﻿@using PustokProject.CoreModels
+@using PustokProject.ViewModels
+@using PustokProject.ViewModels.Blogs
+@model VM_PaginatedEntityTable<VM_BlogIndex>
+
+<div>
+    <ul id="pagination" class="pagination">
+        <li class='page-item @(Model.HasPrev ? "" : "disabled" )'>
+            <a class="page-link" href="@Model.PreviousPage" tabindex="-1">Previous</a>
+        </li>
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            @if (i == Model.CurrentPage)
+            {
+                <li class="page-item active">
+                    <a class="page-link" href="@Url.Action("PaginatedBlogs",new {pagenumber = i,take=3})">@i <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" href="@Url.Action("PaginatedBlogs",new {pagenumber = i,take=3})">@i</a></li>
+            }
+        }
+        <li class="page-item @(Model.HasNext ? "" : "disabled" )">
+            <a class="page-link" href="@Model.NextPage">Next</a>
+        </li>
+    </ul>
+</div>
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Author Name</th>
+            <th>Tags</th>
+            <th>Content</th>
+            <th colspan="4">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody id="tablebody">
+        @foreach (var blog in Model.Items)
+        {
+            <tr style="color:@(blog.IsDeleted ? "white" : "black"); background-color:@(blog.IsDeleted ? "red" : string.Empty)" colspan="2">
+                <td>@blog.Id</td>
+                <td>@blog.Title</td>
+                <td>@blog.Description</td>
+                <td>@blog.AuthorName</td>
+                <td>@blog.Tags</td>
+                <td>@blog.Content</td>
+                <td><a style="display:@(blog.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-controller="Blogs" asp-action="UpdateBlog" asp-route-id="@blog.Id" class="btn btn-warning">Edit</a></td>
+                <td><a style="display:@(blog.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-controller="Blogs" asp-action="DeleteBlog" asp-route-id="@blog.Id" class="btn btn-danger">Delete</a></td>
+                <td><a style="display:@(blog.IsDeleted ? string.Empty : "none" );)" asp-area="Admin" asp-action="RevokeDelete" asp-route-id="@blog.Id" class="btn btn-primary">Revoke</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <ul id="pagination" class="pagination">
+        <li class='page-item @(Model.HasPrev ? "" : "disabled" )'>
+            <a class="page-link" href="@Model.PreviousPage" tabindex="-1">Previous</a>
+        </li>
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            @if (i == Model.CurrentPage)
+            {
+                <li class="page-item active">
+                    <a class="page-link" href="@Url.Action("PaginatedBlogs",new {pagenumber = i,take=3})">@i <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" href="@Url.Action("PaginatedBlogs",new {pagenumber = i,take=3})">@i</a></li>
+            }
+        }
+        <li class="page-item @(Model.HasNext ? "" : "disabled" )">
+            <a class="page-link" href="@Model.NextPage">Next</a>
+        </li>
+    </ul>
+</div>
