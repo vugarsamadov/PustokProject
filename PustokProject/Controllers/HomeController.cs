@@ -44,6 +44,24 @@ namespace PustokProject.Controllers
             var jsonBasket = System.Text.Json.JsonSerializer.Serialize(basketItemsList);
             HttpContext.Response.Cookies.Append("basket", jsonBasket);
         }
+        public void RemoveFromBasket(int id)
+        {
+            var basketItems = HttpContext.Request.Cookies["basket"];
+            if (basketItems != null)
+            { 
+            
+            var basketItemsList = System.Text.Json.JsonSerializer.Deserialize<ICollection<BasketItem>>(basketItems);
+            var item = basketItemsList.FirstOrDefault(bi => bi.Id == id);
+            if (item != null)
+            {
+                    basketItemsList.Remove(item);
+            }
+            
+            var jsonBasket = System.Text.Json.JsonSerializer.Serialize(basketItemsList);
+            HttpContext.Response.Cookies.Append("basket", jsonBasket);
+            }
+        }
+
 
         public string GetBasket()
         {
@@ -51,7 +69,7 @@ namespace PustokProject.Controllers
             return basketItems;
         }
 
-        public record BasketItemVM(string Name,string ImageUrl,decimal Price,int Count);
+        public record BasketItemVM(int Id,string Name,string ImageUrl,decimal Price,int Count);
 
         public async Task<IActionResult> Index()
         {
@@ -67,7 +85,7 @@ namespace PustokProject.Controllers
                 await dbContext
                 .Books
                 .Where(b => basketItemsList.Select(a => a.Id).Contains(b.Id)).ToListAsync(),a=>a.Id,a=>a.Id,
-                (x,y)=> new BasketItemVM(y.Name,y.CoverImageUrl,y.Price,x.Count)).ToList();
+                (x,y)=> new BasketItemVM(y.Id,y.Name,y.CoverImageUrl,y.Price,x.Count)).ToList();
             ViewBag.BasketItems = basketVMItems;
 
             var BooksAbove20Perc = await dbContext.Books.Where(b => !b.IsDeleted && b.DiscountPercentage > 20).Skip(0).Take(4).ToListAsync();

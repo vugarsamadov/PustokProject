@@ -679,7 +679,17 @@ Home Slider Tab
                         ev.preventDefault();
                         console.log($(this).attr("href"));
                         fetch($(this).attr("href")).then(a => console.log(a));
+                        location.reload();
                     });
+
+                    $(".single-cart-block").on("click", ".content #rmvBtn", function (ev) {
+                        ev.preventDefault();
+                        console.log($(this).attr("href"));
+                        fetch($(this).attr("href")).then(a => console.log(a));
+                        location.reload();
+                    });
+
+                    
 
 
                 </script>

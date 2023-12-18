@@ -350,7 +350,7 @@
                                                 @foreach (BasketItemVM bi in ViewBag.BasketItems)
                                                 {
                                                     
-                                                <div class=" single-cart-block ">
+                                                <div class="single-cart-block">
                                                 <div class="cart-product">
                                                     <a href="" class="image">
                                                                 <img src="~/bookimages/@bi.ImageUrl" alt="">
@@ -362,7 +362,7 @@
                                                             </a>
                                                         </h3>
                                                         <p class="price"><span class="qty">@bi.Count ×</span> £@bi.Price</p>
-                                                        <button class="cross-btn"><i class="fas fa-times"></i></button>
+                                                        <a id="rmvBtn"asp-controller="Home" asp-action="RemoveFromBasket" asp-route-Id="@bi.Id" class="cross-btn"><i class="fas fa-times"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
