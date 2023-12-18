@@ -23,13 +23,65 @@ namespace PustokProject.Areas.Home.Controllers
         
         public async Task<IActionResult> Index()
         {
-            var vm = new VM_SlidersIndex();
-            vm.PageTitle = "Admin index";
-            var sliders = await _context.Sliders.ToListAsync();
-            vm.Sliders = sliders;
-            return View(vm);            
+
+            var pagenumber = 1;
+            var take = 3;
+
+            var count = await _context.Sliders
+                    .CountAsync();
+
+            var sliders = await _context.Sliders
+                .Skip((pagenumber - 1) * take)
+                    .Take(take)
+                    .ToListAsync();
+
+            var page = new VM_PaginatedEntityTable<Slider>();
+            page.Items = sliders;
+            page.PageCount = (int)Math.Ceiling((decimal)count / take);
+            page.HasPrev = pagenumber > 1;
+            page.HasNext = pagenumber < page.PageCount;
+            page.CurrentPage = pagenumber;
+
+            var routevaldic = new RouteValueDictionary();
+            routevaldic["pagenumber"] = pagenumber + 1;
+            routevaldic["take"] = take;
+
+            page.NextPage = Url.Action(nameof(PaginatedSliders), routevaldic);
+            routevaldic["pagenumber"] = pagenumber - 1;
+            page.PreviousPage = Url.Action(nameof(PaginatedSliders), routevaldic);
+
+            return View(page);            
         }
-        
+
+        public async Task<IActionResult> PaginatedSliders(int pagenumber, int take)
+        {
+
+            var count = await _context.Sliders
+                    .CountAsync();
+
+            var sliders = await _context.Sliders
+                .Skip((pagenumber - 1) * take)
+                    .Take(take)
+                    .ToListAsync();
+
+            var page = new VM_PaginatedEntityTable<Slider>();
+            page.Items = sliders;
+            page.PageCount = (int)Math.Ceiling((decimal)count / take);
+            page.HasPrev = pagenumber > 1;
+            page.HasNext = pagenumber < page.PageCount;
+            page.CurrentPage = pagenumber;
+
+            var routevaldic = new RouteValueDictionary();
+            routevaldic["pagenumber"] = pagenumber + 1;
+            routevaldic["take"] = take;
+
+            page.NextPage = Url.Action(nameof(PaginatedSliders), routevaldic);
+            routevaldic["pagenumber"] = pagenumber - 1;
+            page.PreviousPage = Url.Action(nameof(PaginatedSliders), routevaldic);
+
+            return PartialView("_PaginatedColumnsSliders", page);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -50,7 +102,7 @@ namespace PustokProject.Areas.Home.Controllers
                 await _context.Sliders.AddAsync(slider);
                 await _context.SaveChangesAsync();
             }
-            return View(createModel);
+            return RedirectToAction(nameof(Index));
         }
         
         
