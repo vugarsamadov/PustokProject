@@ -1,0 +1,52 @@
+﻿@using static PustokProject.Controllers.HomeController
+<div class="cart-block">
+    <div class="cart-total">
+        <span class="text-number">
+            1
+        </span>
+        <span class="text-item">
+            Shopping Cart
+        </span>
+        @if (ViewBag.BasketItems != null)
+        {
+            <span class="price">
+                £ @(((ICollection<BasketItemVM>)ViewBag.BasketItems).Sum(a => a.Count * a.Price))
+                <i class="fas fa-chevron-down"></i>
+            </span>
+        }
+    </div>
+    <div class="cart-dropdown-block">
+        @if (ViewBag.BasketItems != null)
+        {
+            @foreach (BasketItemVM bi in ViewBag.BasketItems)
+            {
+
+                <div class="single-cart-block">
+                    <div class="cart-product">
+                        <a href="" class="image">
+                            <img src="~/bookimages/@bi.ImageUrl" alt="">
+                        </a>
+                        <div class="content">
+                            <h3 class="title">
+                                <a href="product-details.html">
+                                    @bi.Name
+                                </a>
+                            </h3>
+                            <p class="price"><span class="qty">@bi.Count ×</span> £@bi.Price</p>
+                            <a id="rmvBtn" asp-controller="Home" asp-action="RemoveFromBasket" asp-route-Id="@bi.Id" class="cross-btn"><i class="fas fa-times"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <div class=" single-cart-block ">
+            <div class="btn-block">
+                <a href="cart.html" class="btn">
+                    View Cart <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="checkout.html" class="btn btn--primary">
+                    Check Out <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>

@@ -77,16 +77,7 @@ namespace PustokProject.Controllers
             model.Sliders = await dbContext.Sliders.Where(b=>!b.IsDeleted).ToListAsync();
             model.Books = await dbContext.Books.Where(b=>!b.IsDeleted).ToListAsync();
 
-            var basketItems = HttpContext.Request.Cookies["basket"] ?? "[]";
-            var basketItemsList = System.Text.Json.JsonSerializer.Deserialize<ICollection<BasketItem>>(basketItems);
-
-            var basketVMItems = basketItemsList
-                .Join(
-                await dbContext
-                .Books
-                .Where(b => basketItemsList.Select(a => a.Id).Contains(b.Id)).ToListAsync(),a=>a.Id,a=>a.Id,
-                (x,y)=> new BasketItemVM(y.Id,y.Name,y.CoverImageUrl,y.Price,x.Count)).ToList();
-            ViewBag.BasketItems = basketVMItems;
+            
 
             var BooksAbove20Perc = await dbContext.Books.Where(b => !b.IsDeleted && b.DiscountPercentage > 20).Skip(0).Take(4).ToListAsync();
             var count = await dbContext.Books.Where(b => !b.IsDeleted && b.DiscountPercentage > 20).CountAsync();

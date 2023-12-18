@@ -51,7 +51,7 @@ namespace PustokProject.Controllers
             {				
 				TempData["Errors"] = result.Errors.Select(a=>a.Description).ToList();
             }
-                return RedirectToAction(nameof(LoginRegisterIndex)); 
+            return RedirectToAction(nameof(LoginRegisterIndex)); 
         }
     }
 }
