@@ -1,0 +1,43 @@
+﻿@using PustokProject.ViewModels.Auth
+@model VM_Login
+
+
+@section scripts
+{
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<main class="page-section inner-page-sec-padding-bottom">
+	<div class="container">
+		<div class="row">
+<div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+	<!-- Login Form -->
+	<form asp-controller="Auth" asp-action="Login" method="post">
+		<div class="login-form">
+			<h4 class="login-title">Returning Customer</h4>
+			<p><span class="font-weight-bold">I am a returning customer</span></p>
+			<div class="row">
+				<div class="col-12 mb--20">
+					<label asp-for="Email"></label>
+					<input asp-for="Email" class="mb-0 form-control" id="email" placeholder="Enter Your Email Address Here..">
+					<span class="text-danger" asp-validation-for="Email"></span>
+				</div>
+
+				<div class="col-lg-6 mb--20">
+					<label asp-for="Password">Password</label>
+					<input asp-for="Password" class="mb-0 form-control" type="password" id="password" placeholder="Enter your password">
+					<span class="text-danger" asp-validation-for="Password"></span>
+				</div>
+				<div class="col-md-12">
+					<button type="submit" class="btn btn-outlined">Login</button>
+				</div>
+			</div>
+		</div>
+				<div asp-validation-summary="ModelOnly"></div>
+	</form>
+</div>
+	</div>
+	</div>
+</main>

@@ -326,8 +326,8 @@
                                     @if(User.Identity.IsAuthenticated == false)
                                     {
                                     <div class="login-block">
-                                        <a asp-controller="Auth" asp-action="LoginRegisterIndex" class="font-weight-bold">Login</a> <br>
-                                            <span>or</span><a asp-controller="Auth" asp-action="LoginRegisterIndex">Register</a>
+                                        <a asp-controller="Auth" asp-action="Login" class="font-weight-bold">Login</a> <br>
+                                            <span>or</span><a asp-controller="Auth" asp-action="Register">Register</a>
                                         </div>
                                     }
                                     else
@@ -339,7 +339,7 @@
                                                         @User.Identity.Name <i class="fas fa-chevron-down dropdown-arrow"></i>
                                                             </a>
                                                             <ul class="sub-menu">
-                                                                <li><a href="cart.html">Profile</a></li>
+                                                        <li><a asp-controller="Auth" asp-action="Profile">Profile</a></li>
                                                                 <li><a asp-controller="Auth" asp-action="Logout" >Logout</a></li>
                                                             </ul>
                                                         </li>

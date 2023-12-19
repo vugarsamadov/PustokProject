@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using PustokProject.ViewModels.Categories;
 namespace PustokProject.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles ="Admin, Member, SuperAdmin, Moderator")]
 public class CategoriesController : Controller
 {
     private readonly ApplicationDbContext _context;

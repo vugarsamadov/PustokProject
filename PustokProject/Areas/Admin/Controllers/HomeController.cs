@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
 using PustokProject.Enums;
@@ -11,7 +12,8 @@ namespace PustokProject.Areas.Home.Controllers
 {
 
     [Area("Admin")]
-    public class HomeController : Controller
+	[Authorize(Roles ="Admin, Member, SuperAdmin, Moderator")]
+	public class HomeController : Controller
     {
 
         public ApplicationDbContext _context { get; }

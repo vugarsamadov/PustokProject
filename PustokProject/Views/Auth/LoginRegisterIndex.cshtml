@@ -1,4 +1,4 @@
-﻿@using PustokProject.ViewModels.Auth
+﻿@* @using PustokProject.ViewModels.Auth
 @model VM_LoginRegister
 
 
@@ -7,8 +7,6 @@
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-
-
 }
 
 <main class="page-section inner-page-sec-padding-bottom">
@@ -16,7 +14,6 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0">
 				<!-- Register Form-->
-				<div class="text-danger" asp-validation-summary="All"></div>
 				<form asp-controller="Auth" asp-action="Register" method="post">
 					<div class="login-form">
 						<h4 class="login-title">New Customer</h4>
@@ -57,6 +54,8 @@
 							</div>
 						</div>
 					</div>
+					<div class="text-danger" asp-validation-summary="All"></div>
+
 				</form>
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
@@ -66,7 +65,6 @@
 						<h4 class="login-title">Returning Customer</h4>
 						<p><span class="font-weight-bold">I am a returning customer</span></p>
 						<div class="row">
-							
 							<div class="col-12 mb--20">
 								<label asp-for="LoginModel.Email"></label>
 								<input asp-for="LoginModel.Email" class="mb-0 form-control" id="email" placeholder="Enter Your Email Address Here..">
@@ -88,4 +86,4 @@
 			</div>
 		</div>
 	</div>
-</main>
+</main> *@

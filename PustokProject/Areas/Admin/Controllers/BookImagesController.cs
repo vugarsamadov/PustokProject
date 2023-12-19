@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
 using PustokProject.Persistance;
@@ -7,6 +8,7 @@ using PustokProject.ViewModels.BookImages;
 namespace PustokProject.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles ="Admin, Member, SuperAdmin, Moderator")]
 public class BookImagesController : Controller
 {
     private readonly ApplicationDbContext _dbContext;

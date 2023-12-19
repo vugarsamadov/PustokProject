@@ -1,4 +1,7 @@
-﻿<div class="page-section inner-page-sec-padding">
+﻿@using PustokProject.ViewModels.Profile
+@model VM_UserProfile;
+
+<div class="page-section inner-page-sec-padding">
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
@@ -161,42 +164,70 @@
 							<!-- Single Tab Content Start -->
 							<div class="tab-pane fade" id="account-info" role="tabpanel">
 								<div class="myaccount-content">
+
+									@section scripts
+									{
+									<script>
+										var btnFile = document.getElementById("uploadimage");
+										var image = document.getElementById("img");
+
+										btnFile.onchange = evt => {
+											const [file] = btnFile.files
+											if (file) {
+												image.src = URL.createObjectURL(file)
+											}
+										}
+									</script>
+									}
+
 									<h3>Account Details</h3>
 									<div class="account-details-form">
-										<form action="#">
+										<form asp-action="Profile" asp-controller="Auth" method="post" enctype="multipart/form-data">
+											<img id="img" width="300" height="300" src="@(String.IsNullOrEmpty(Model.ProfileImageUrl) ? "https://subscription.tawseel.com/images/publications/NOT_AVAILABLE.png" :@Url.Content($"~/userimages/{Model.ProfileImageUrl}") )" />
+											<input id="uploadimage" asp-for="ProfileImage" type="file" accept="image/*" />
+
 											<div class="row">
 												<div class="col-lg-6 col-12  mb--30">
-													<input id="first-name" placeholder="First Name" type="text">
+													<input asp-for="FirstName" placeholder="First Name" type="text">
+													<span asp-validation-for="FirstName"></span>
 												</div>
 												<div class="col-lg-6 col-12  mb--30">
-													<input id="last-name" placeholder="Last Name" type="text">
+													<input asp-for="LastName" placeholder="Last Name" type="text">
+													<span asp-validation-for="LastName"></span>
 												</div>
 												<div class="col-12  mb--30">
-													<input id="display-name" placeholder="Display Name"
+													<input asp-for="DisplayName" placeholder="Display Name"
 														   type="text">
+													<span asp-validation-for="DisplayName"></span>
 												</div>
 												<div class="col-12  mb--30">
-													<input id="email" placeholder="Email Address" type="email">
+													<input asp-for="Email" placeholder="Email Address" type="email">
+													<span asp-validation-for="Email"></span>
 												</div>
 												<div class="col-12  mb--30">
 													<h4>Password change</h4>
 												</div>
 												<div class="col-12  mb--30">
-													<input id="current-pwd" placeholder="Current Password"
+													<input asp-for="CurrentPassword" placeholder="Current Password"
 														   type="password">
+													<span asp-validation-for="CurrentPassword"></span>
 												</div>
 												<div class="col-lg-6 col-12  mb--30">
-													<input id="new-pwd" placeholder="New Password"
+													<input asp-for="NewPassword" placeholder="New Password"
 														   type="password">
+													<span asp-validation-for="NewPassword"></span>
 												</div>
 												<div class="col-lg-6 col-12  mb--30">
-													<input id="confirm-pwd" placeholder="Confirm Password"
+													<input asp-for="ReNewPassword" placeholder="Confirm Password"
 														   type="password">
+														   <span asp-validation-for="ReNewPassword"></span>
 												</div>
+												<div asp-validation-summary="ModelOnly"></div>
 												<div class="col-12">
-													<button class="btn btn--primary">Save Changes</button>
+													<button type="submit" class="btn btn--primary">Save Changes</button>
 												</div>
 											</div>
+
 										</form>
 									</div>
 								</div>

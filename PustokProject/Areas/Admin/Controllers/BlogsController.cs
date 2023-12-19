@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
@@ -10,6 +11,7 @@ using System.Security.Policy;
 namespace PustokProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles ="Admin, Member, SuperAdmin, Moderator")]
     public class BlogsController : Controller
     {
 

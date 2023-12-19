@@ -23,6 +23,16 @@ builder.Services.AddDbContext<ApplicationDbContext>()
         
     }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = new PathString("/Auth/Login");
+    options.LogoutPath = new PathString("/Auth/Logout");
+    options.AccessDeniedPath = new PathString("/Auth/AccessDenied");
+
+});
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

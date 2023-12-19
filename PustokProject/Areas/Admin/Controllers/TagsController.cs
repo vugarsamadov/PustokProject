@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
 using PustokProject.Persistance;
@@ -8,7 +9,8 @@ using PustokProject.ViewModels.Tags;
 namespace PustokProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class TagsController : Controller
+	[Authorize(Roles ="Admin, Member, SuperAdmin, Moderator")]
+	public class TagsController : Controller
     {
 
         public TagsController(ApplicationDbContext context)

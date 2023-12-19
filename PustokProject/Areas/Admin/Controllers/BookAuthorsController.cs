@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.FlowAnalysis;
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
@@ -9,6 +10,7 @@ using PustokProject.ViewModels.AuthorVMS;
 namespace PustokProject.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles ="Admin, Member, SuperAdmin, Moderator")]
 public class BookAuthorsController : Controller
 {
     private readonly ApplicationDbContext _context;
