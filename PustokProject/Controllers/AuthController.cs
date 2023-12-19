@@ -2,16 +2,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using PustokProject.CoreModels;
+using PustokProject.Migrations;
 using PustokProject.ViewModels.Auth;
 
 namespace PustokProject.Controllers
 {
     public class AuthController : Controller
     {
-		private readonly SignInManager<User> signInManager;
-		private readonly UserManager<User> userManager;
+		private readonly SignInManager<ApplicationUser> signInManager;
+		private readonly UserManager<ApplicationUser> userManager;
 
-		public AuthController(SignInManager<User> signInManager, UserManager<User> userManager)
+		public AuthController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
 			this.signInManager = signInManager;
 			this.userManager = userManager;
@@ -40,7 +41,7 @@ namespace PustokProject.Controllers
                 return View();
             }
             var result = await userManager.CreateAsync(
-                new User()
+                new ApplicationUser()
                 {
                     FullName = registermodel.FullName,
                     Email = registermodel.Email,
@@ -53,5 +54,48 @@ namespace PustokProject.Controllers
             }
             return RedirectToAction(nameof(LoginRegisterIndex)); 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(VM_Login loginModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var user = await userManager.FindByEmailAsync(loginModel.Email);
+            if (user != null)
+            {   
+                var result = await signInManager.PasswordSignInAsync(user,
+                loginModel.Password, false, lockoutOnFailure: false);
+
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError("","Something went wrong...");
+                    return View("LoginRegisterIndex");
+                }
+            }
+            ModelState.AddModelError("", "Something went wrong...");
+            return View("LoginRegisterIndex");
+            return RedirectToAction(nameof(LoginRegisterIndex));
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            if (User.Identity == null)
+            {
+                return NotFound();
+            }
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            return View();
+        }
+
     }
 }

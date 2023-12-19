@@ -358,7 +358,7 @@ namespace PustokProject.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("PustokProject.CoreModels.User", b =>
+            modelBuilder.Entity("PustokProject.CoreModels.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");

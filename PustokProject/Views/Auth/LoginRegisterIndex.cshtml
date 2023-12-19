@@ -16,10 +16,12 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0">
 				<!-- Register Form-->
+				<div class="text-danger" asp-validation-summary="All"></div>
 				<form asp-controller="Auth" asp-action="Register" method="post">
 					<div class="login-form">
 						<h4 class="login-title">New Customer</h4>
 						<p><span class="font-weight-bold">I am a new customer</span></p>
+						
 						<div class="row">
 							<div class="col-md-12 col-12 mb--15">
 								<label asp-for="RegisterModel.FullName"></label>
@@ -50,7 +52,6 @@
 								<input asp-for="RegisterModel.RePassword"  class="mb-0 form-control" type="password" id="repeat-password" placeholder="Repeat your password">
 								<span class="text-danger" asp-validation-for="RegisterModel.RePassword"></span>
 							</div>
-							<div class="text-danger" asp-validation-summary="All"></div>
 							<div class="col-md-12">
 								<button type="submit" class="btn btn-outlined">Register</button>
 							</div>

@@ -10,7 +10,7 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddDbContext<ApplicationDbContext>()
-    .AddIdentity<User, IdentityRole>(options =>
+    .AddIdentity<ApplicationUser, IdentityRole>(options =>
     {
         options.SignIn.RequireConfirmedPhoneNumber = false;
         options.SignIn.RequireConfirmedEmail = false;
@@ -20,7 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>()
         options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequiredLength = 4;
-
+        
     }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 var app = builder.Build();
@@ -41,7 +41,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

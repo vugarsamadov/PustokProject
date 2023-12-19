@@ -323,11 +323,30 @@
                         <div class="col-lg-4">
                             <div class="main-navigation flex-lg-right">
                                 <div class="cart-widget">
+                                    @if(User.Identity.IsAuthenticated == false)
+                                    {
                                     <div class="login-block">
                                         <a asp-controller="Auth" asp-action="LoginRegisterIndex" class="font-weight-bold">Login</a> <br>
-                                        <span>or</span><a href="login-register.html">Register</a>
-                                    </div>
-
+                                            <span>or</span><a asp-controller="Auth" asp-action="LoginRegisterIndex">Register</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="main-navigation flex-lg-right">
+                                            <ul class="main-menu menu-right ">
+                                                        <li class="menu-item has-children">
+                                                            <a href="javascript:void(0)">
+                                                        @User.Identity.Name <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                                            </a>
+                                                            <ul class="sub-menu">
+                                                                <li><a href="cart.html">Profile</a></li>
+                                                                <li><a asp-controller="Auth" asp-action="Logout" >Logout</a></li>
+                                                            </ul>
+                                                        </li>
+                                        </ul>
+                                        </div>
+                                    }
+                                        
                                     @await Component.InvokeAsync(nameof(BasketComponent))
                                     
                                 </div>
