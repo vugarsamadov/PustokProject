@@ -19,14 +19,14 @@ namespace PustokProject.Persistance
         public DbSet<Tag> Tags{  get; set; }
         public DbSet<ApplicationUser> Users{  get; set; }
 
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder
-                .UseSqlServer(@"Server=DESKTOP-J8RQVMH\SQLEXPRESS;Database=Pustok5;TrustServerCertificate=True;Encrypt=False;Trusted_Connection=True");
-                //.UseSqlServer(@"Server=localhost;Database=Pustok4;User Id=SA;Password=Vugar2003Vs$");
+			optionsBuilder.LogTo(Console.WriteLine);
+			optionsBuilder
+                //.UseSqlServer(@"Server=DESKTOP-J8RQVMH\SQLEXPRESS;Database=Pustok5;TrustServerCertificate=True;Encrypt=False;Trusted_Connection=True");
+                .UseSqlServer(@"Server=localhost;Database=Pustok4;User Id=SA;Password=Vugar2003Vs$");
         }
     }
 }
