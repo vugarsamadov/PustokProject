@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using PustokProject.CoreModels;
+using PustokProject.Extensions;
 using PustokProject.Migrations;
 using PustokProject.Persistance;
+using PustokProject.Services;
 using PustokProject.ViewModels.Auth;
 using PustokProject.ViewModels.Profile;
 
@@ -15,15 +17,17 @@ namespace PustokProject.Controllers
 		private readonly SignInManager<ApplicationUser> signInManager;
 		private readonly UserManager<ApplicationUser> userManager;
 		private readonly RoleManager<IdentityRole> roleManager;
+        public IEmailService EmailSender { get; set; }
 
-		public ApplicationDbContext _dbContext { get; }
+        public ApplicationDbContext _dbContext { get; }
 
-		public AuthController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, RoleManager<IdentityRole> roleManager)
+		public AuthController(IEmailService emailsender,SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, RoleManager<IdentityRole> roleManager)
 		{
 			this.signInManager = signInManager;
 			this.userManager = userManager;
 			_dbContext = dbContext;
 			this.roleManager = roleManager;
+            EmailSender = emailsender;
 		}
 
 		public IActionResult Login()
@@ -56,7 +60,6 @@ namespace PustokProject.Controllers
             {				
 				result.Errors.Select(a=>a.Description).ToList().ForEach(a=> ModelState.AddModelError("",a));
 				return View(registermodel);
-
 			}
 
 			var roleResult = await userManager.AddToRoleAsync(user,Roles.Member.ToString());
@@ -65,6 +68,8 @@ namespace PustokProject.Controllers
 				result.Errors.Select(a => a.Description).ToList().ForEach(a => ModelState.AddModelError("", a));
 				return View(registermodel);
 			}
+
+            EmailSender.SendWelcomeEmail(user.Email);
 
 			return RedirectToAction(nameof(Login)); 
         }

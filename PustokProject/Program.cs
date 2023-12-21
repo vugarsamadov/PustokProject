@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using PustokProject.CoreModels;
 using PustokProject.Persistance;
+using PustokProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +31,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = new PathString("/Auth/AccessDenied");
 
 });
-
-
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 
@@ -47,7 +47,7 @@ if (!app.Environment.IsDevelopment())
 
 
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
